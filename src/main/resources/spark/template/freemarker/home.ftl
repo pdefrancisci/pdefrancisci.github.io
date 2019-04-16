@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <meta http-equiv="refresh" content="10">
+    <title>Web Checkers | ${title}</title>
+    <link rel="stylesheet" type="text/css" href=${style}>
+</head>
+
+<body>
+<div class="page">
+
+  <#if username??>
+    <h1>Web Checkers | Welcome ${username}!</h1>
+  <#else>
+    <h1>Web Checkers | ${title}</h1>
+  </#if>
+
+  <!-- Provide a navigation bar -->
+  <#include "nav-bar.ftl">
+
+  <div class="body">
+
+    <!-- Provide a message to the user, if supplied. -->
+    <#include "message.ftl">
+
+    <!-- TODO: future content on the Home:
+            to start games,
+            spectating active games,
+            or replay archived games
+    -->
+    <div class="INFO">
+        <#if username??>
+            <div>Play</div>
+            <#list players as player>
+            <form action="/game" method="GET">
+
+            <li><button name="username" type="submit" value=${player}>${player}</button></li>
+
+            </form>
+            </#list>
+            <div>Spectate</div>
+            <#list players as player>
+                <form action="/spectate" method="GET">
+
+                    <li><button name="username" type="submit" value=${player}>${player}</button></li>
+
+                </form>
+            </#list>
+        <#else>
+            <p> Number of players: ${num_players}</p>
+        </#if>
+    </div>
+  </div>
+    <#if username??>
+        <form action="/darkmode" method="GET">
+            <button name="darkmode" type="submit" value=${username}>Dark Mode</button>
+        </form>
+    </#if>
+
+</div>
+</body>
+
+</html>
